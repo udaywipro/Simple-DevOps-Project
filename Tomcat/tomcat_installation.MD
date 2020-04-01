@@ -1,7 +1,7 @@
 # Tomcat installation on EC2 instance
 
 ### Pre-requisites
-1. EC2 instance with Java v1.8.x 
+1. EC2 instance with Java v1.8.x
 
 ### Install Apache Tomcat
 1. Download tomcat packages from  https://tomcat.apache.org/download-80.cgi onto /opt on EC2 instance
@@ -52,12 +52,19 @@ After that restart tomcat services to effect these changes
    ```
 1. Update users information in the tomcat-users.xml file
 goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+
+note: if you click on manager apps in tomcat server,by default your tomcat server alllows from your local system. we have to update the context.xml then only the users can able to login manager app application outside of the tomcat server.
+now we have to set some users and roles in order to access it from the browser.
+
+#role name is manager-gui
+# user name is deployer and he is part of manager-script group.
+this user is able to access the tomcat application from the browser
    ```sh
-	<role rolename="manager-gui"/>
+	<role rolename="manager-gui"/>    
 	<role rolename="manager-script"/>
 	<role rolename="manager-jmx"/>
 	<role rolename="manager-status"/>
-	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/> 
 	<user username="deployer" password="deployer" roles="manager-script"/>
 	<user username="tomcat" password="s3cret" roles="manager-gui"/>
    ```
